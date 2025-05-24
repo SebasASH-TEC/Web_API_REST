@@ -1,19 +1,23 @@
 ﻿const { v4: uuidv4 } = require('uuid');
 
+// Nodo individual de la lista enlazada
 class Node {
+    // value: valor almacenado en el nodo
     constructor(value) {
-        this.id = Node.incrementId();
-        this.value = value;
-        this.next = null;
+        this.id = Node.incrementId(); // id único del nodo
+        this.value = value;           // valor del nodo
+        this.next = null;             // referencia al siguiente nodo
     }
 }
 
+// Lista enlazada simple
 class LinkedList {
     constructor() {
-        this.head = null;
-        this.elements = [];
+        this.head = null;     // head: primer nodo de la lista
+        this.elements = [];   // elements: arreglo auxiliar para almacenar nodos
     }
 
+    // Valor a agregar en la lista
     addAndReturnId(value) {
         const newNode = new Node(value);
         if (!this.head) {
@@ -26,21 +30,22 @@ class LinkedList {
             current.next = newNode;
         }
         this.elements.push({ id: newNode.id, value: newNode.value });
-        return newNode.id;
+        return newNode.id; // retorna el id del nodo agregado
     }
 
+    // Retorna todos los elementos de la lista
     getAll() {
         return this.elements;
     }
 
-    
+    // id: identificador del nodo a eliminar
     deleteById(id) {
         if (id === null || id === undefined) {
             return false;
         }
         if (!this.head) return false;
 
-        // Special case: deleting the head node
+        // Caso especial: eliminar el nodo head
         if (this.head.id === id) {
             this.elements = this.elements.filter(element => element.id !== id);
             this.head = this.head.next;
@@ -59,5 +64,4 @@ class LinkedList {
         return false;
     }
 }
-
 module.exports = new LinkedList();
